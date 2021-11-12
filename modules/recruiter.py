@@ -333,7 +333,7 @@ def rec(root, email1):
 
     get_details(email)
 
-    bg.load = PhotoImage(file=f'elements\\bgM.png')
+    bg.load = PhotoImage(file=f'elements\\bgMenu.png')
     img = Label(root, image=bg.load)
     img.place(x=0, y=0)
 
@@ -341,7 +341,7 @@ def rec(root, email1):
     nm = Label(root, text=f'{name}', font=(
         'normal', 36, 'bold'), bg="#ffffff", fg="#0A3D62")
     nm.place(x=300, y=50)
-    pos_l = Label(root, text=f'{pos}', font=(
+    pos_l = Label(root, text=f'{code + "  -  " + pos}', font=(
         'normal', 24), bg="#ffffff", fg="#0A3D62")
     pos_l.place(x=300, y=120)
     bn = Button(root, text="LOGOUT", font=(
@@ -349,25 +349,33 @@ def rec(root, email1):
     bn.place(x=800, y=75)
 
     # Left
-    lf = Frame(root, width=330, height=440, bg="#ffffff")
-    lf.place(x=60, y=220)
-    cj = Button(lf, text="Post a Job", font=(
-        'normal', 20), bg="#b32e2e", fg="#ffffff", command=create)
-    cj.grid(row=0, column=0, padx=80, pady=40)
+    lf = Frame(root, width=920, height=160, bg="#fff33f")
+    # lf.place(x=70, y=220)
+    lf.place(x=70, y=220)
+
+    # cj = Button(lf, text="Post a Job", font=(
+    #     'normal', 20), bg="#b32e2e", fg="#ffffff", command=create)
+    # cj.grid(row=0, column=0, padx=80, pady=40)
+    
+    """
     pj = Button(lf, text="Posted Jobs", font=(
         'normal', 20), bg="#b32e2e", fg="#ffffff", command=posted)
     pj.grid(row=1, column=0, padx=80, pady=40)
     ap = Button(lf, text="Applications", font=(
         'normal', 20), bg="#b32e2e", fg="#ffffff", command=app)
     ap.grid(row=2, column=0, padx=80, pady=40)
+    """
 
     # Right
     global rt, tab, bgr
-    rt = Frame(root, width=540, height=420, bg="#ffffff")
-    rt.place(x=450, y=220)
-    tab = Frame(root, bg="#FFFFFF")
-    tab.place(x=460, y=300, width=520, height=350)
+    # rt = Frame(root, width=95, height=200, bg="#ff33ff")
+    # rt.place(x=60, y=520)
+    tab = Frame(root, bg="#ff33ff")
+    tab.place(x=70, y=441, width=920, height=222)
+    
+    """
     bgrf = Frame(root, width=540, height=420)
     bgrf.load = PhotoImage(file="elements\\bgr.png")
     bgr = Label(root, image=bgrf.load, bg="#00b9ed")
     bgr.place(x=440, y=210)
+    """
