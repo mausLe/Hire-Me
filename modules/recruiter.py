@@ -353,6 +353,142 @@ def rec(root, email1):
     # lf.place(x=70, y=220)
     lf.place(x=70, y=220)
 
+    
+
+    ### My Entry Grid
+
+    # Configure the grid
+    lf.columnconfigure(0, weight=1)
+    lf.columnconfigure(2, weight=1)
+    lf.columnconfigure(4, weight=1)
+    lf.columnconfigure(1, weight=3)
+    lf.columnconfigure(3, weight=3)
+    lf.columnconfigure(5, weight=3)
+
+    # Column 0
+    Row_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Row ID")
+    Row_ID_label.grid(column=0, row=0, sticky=W)
+
+    Order_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Order ID")
+    Order_ID_label.grid(column=0, row=1, sticky=W)
+
+    Order_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Order Date")
+    Order_Date_label.grid(column=0, row=2, sticky=W)
+
+    Ship_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Ship Date")
+    Ship_Date_label.grid(column=0, row=3, sticky=W)
+    
+    ShipMode_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Ship Mode")
+    ShipMode_ID_label.grid(column=0, row=4, sticky=W)
+    
+    Customer_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Customer ID")
+    Customer_ID_label.grid(column=0, row=5, sticky=W)
+    
+    # Colum 1
+    Row_ID_entry = Entry(lf,  width=15, placeholder="Enter Row ID")
+    Row_ID_entry.grid(column=1, row=0, sticky=W)
+
+    Order_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Order_ID_entry.grid(column=1, row=1, sticky=W)
+
+    Order_Date_entry = Entry(lf,  width=15, placeholder="E.g: 11/8/2017")
+    Order_Date_entry.grid(column=1, row=2, sticky=W)
+
+    Ship_Date_entry = Entry(lf,  width=15, placeholder="E.g: 11/11/2017")
+    Ship_Date_entry.grid(column=1, row=3, sticky=W)
+
+    # Combobox
+    ShipMode_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3, 4], 
+                    font=('normal', 13), width=16)
+    ShipMode_ID_cbbox.grid(column=1, row=4, sticky=W)
+    
+    Customer_ID_entry = Entry(lf,  width=15, placeholder="E.g: CG-12520")
+    Customer_ID_entry.grid(column=1, row=5, sticky=W)
+    
+
+
+    # Column 2
+    Segment_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Segment")
+    Segment_ID_label.grid(column=2, row=0, padx = (30, 0), sticky=W)
+
+    City_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="City ID")
+    City_ID_label.grid(column=2, row=1, padx = (30, 0), sticky=W)
+
+    State_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="State ID")
+    State_ID_label.grid(column=2, row=2, padx = (30, 0), sticky=W)
+
+    Postal_Code_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Postal Code")
+    Postal_Code_label.grid(column=2, row=3, padx = (30, 0), sticky=W)
+    
+    Region_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Region ID")
+    Region_ID_label.grid(column=2, row=4, padx = (30, 0), sticky=W)
+    
+    Product_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Product ID")
+    Product_ID_label.grid(column=2, row=5, padx = (30, 0), sticky=W)
+
+
+    # Column 3
+    Segment_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3], 
+                    font=('normal', 13), width=16)
+    Segment_ID_cbbox.grid(column=3, row=0, sticky=W)
+
+    City_ID_entry = Entry(lf,  width=15, placeholder="E.g: 3")
+    City_ID_entry.grid(column=3, row=1, sticky=W)
+
+    State_ID_entry = Entry(lf,  width=15, placeholder="E.g: 37")
+    State_ID_entry.grid(column=3, row=2, sticky=W)
+
+    Postal_Code_entry = Entry(lf,  width=15, placeholder="E.g: 90032")
+    Postal_Code_entry.grid(column=3, row=3, sticky=W)
+
+    Region_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3, 4], 
+                    font=('normal', 13), width=16)
+    Region_ID_cbbox.grid(column=3, row=4, sticky=W)
+
+    Product_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Product_ID_entry.grid(column=3, row=5, sticky=W)
+
+    # Column 4
+    Category_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Category ID")
+    Category_ID_label.grid(column=4, row=0, padx = (30, 0), sticky=W)
+
+    SubCategory_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Sub-Cat ID")
+    SubCategory_ID_label.grid(column=4, row=1, padx = (30, 0), sticky=W)
+
+    Sales_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Sales ($)")
+    Sales_label.grid(column=4, row=2, padx = (30, 0), sticky=W)
+
+    Quantity_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Quantity")
+    Quantity_label.grid(column=4, row=3, padx = (30, 0), sticky=W)
+
+    Discount_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Discount")
+    Discount_label.grid(column=4, row=4, padx = (30, 0), sticky=W)
+
+    Profit_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Profit")
+    Profit_label.grid(column=4, row=5, padx = (30, 0), sticky=W)
+
+    # Column 5
+    Category_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3], 
+                    font=('normal', 13), width=16)
+    Category_ID_cbbox.grid(column=5, row=0, sticky=W)
+    
+    Sub_Category_values = [x for x in range(1, 18)]
+    SubCategory_ID_entry = ttk.Combobox(lf, values = Sub_Category_values, 
+                    font=('normal', 13), width=16)
+    SubCategory_ID_entry.grid(column=5, row=1, sticky=W)
+
+    Sales_entry = Entry(lf,  width=15, placeholder="E.g: 48.86")
+    Sales_entry.grid(column=5, row=2, sticky=W)
+
+    Quantity_entry = Entry(lf,  width=15, placeholder="E.g: 7")
+    Quantity_entry.grid(column=5, row=3, sticky=W)
+
+    Discount_entry = Entry(lf,  width=15, placeholder="E.g: 0.45")
+    Discount_entry.grid(column=5, row=4, sticky=W)
+
+    Profit_entry = Entry(lf,  width=15, placeholder="E.g: 34.47")
+    Profit_entry.grid(column=5, row=5, sticky=W)
+
     # cj = Button(lf, text="Post a Job", font=(
     #     'normal', 20), bg="#b32e2e", fg="#ffffff", command=create)
     # cj.grid(row=0, column=0, padx=80, pady=40)
@@ -371,7 +507,7 @@ def rec(root, email1):
     # rt = Frame(root, width=95, height=200, bg="#ff33ff")
     # rt.place(x=60, y=520)
     tab = Frame(root, bg="#ff33ff")
-    tab.place(x=70, y=441, width=920, height=222)
+    tab.place(x=70, y=492, width=920, height=170)
     
     """
     bgrf = Frame(root, width=540, height=420)

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS mydb.Users(
 Create_Entry_Table = """
 CREATE TABLE IF NOT EXISTS mydb.Entry (
   Row_ID INT NOT NULL AUTO_INCREMENT,
+  Order_ID VARCHAR(20) NOT NULL,
 
   Order_Date DATE NOT NULL,
   Ship_Date	DATE NOT NULL,
