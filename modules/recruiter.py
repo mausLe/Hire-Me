@@ -30,8 +30,27 @@ def logi(root):
     l.log(root)
 
 
-def submit_job():
-    global role1, jtype1, qual1, exp1, sal1
+def submit_record():
+    global Row_ID, Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code, Regieon_ID, Product_ID, Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit
+    Row_ID = Row_ID_entry.get()
+    Order_ID = Order_ID_entry.get()
+    Order_Date = Order_Date_entry.get()
+    Ship_Date = Ship_Date_entry.get()
+    ShipMode_ID = ShipMode_ID_entry.get()
+    Customer_ID = Customer_ID_entry.get()
+    Segment_ID = Segment_ID_entry.get()
+    City_ID = City_ID_entry.get()
+    State_ID = State_ID_entry.get()
+    Postal_Code = Postal_Code_entry.get()
+    Regieon_ID = Regieon_ID_entry.get()
+    Product_ID = Product_ID_entry.get()
+    Category_ID = Category_ID_entry.get()
+    SubCategory_ID = SubCategory_ID_entry.get()
+    Sales = Sales_entry.get()
+    Quantity = Quantity_entry.get()
+    Discount = Discount_entry.get()
+    Profit = Profit_entry.get()
+
     role1 = role.get()
     jtype1 = jtype.get()
     qual1 = qual.get()
@@ -492,6 +511,9 @@ def rec(root, email1):
     # cj = Button(lf, text="Post a Job", font=(
     #     'normal', 20), bg="#b32e2e", fg="#ffffff", command=create)
     # cj.grid(row=0, column=0, padx=80, pady=40)
+
+    
+
     
     """
     pj = Button(lf, text="Posted Jobs", font=(
@@ -515,3 +537,12 @@ def rec(root, email1):
     bgr = Label(root, image=bgrf.load, bg="#161E54")
     bgr.place(x=440, y=210)
     """
+    root.bn = PhotoImage(file="elements\\floppy.png") 
+    Save_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", image=root.bn, text="Save Record", compound="left") 
+
+
+    # Save_Record = Button(root, text="Save Record", font=(
+    #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
+    Save_Record.place(x=475, y=447)
+
+    
