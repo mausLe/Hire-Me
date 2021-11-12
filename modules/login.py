@@ -7,6 +7,25 @@ from modules.recruiter import *
 from modules.client import *
 from modules.creds import user_pwd
 
+def chooseFunction(root, email1):
+    r1 = Frame(root, height=700, width=1050)
+    r1.place(x=0, y=0)
+    r1.render = PhotoImage(file="elements/chooseFunction.png")
+    img = Label(r1, image=r1.render)
+    img.place(x=0, y=0)
+    r1.Img1 = PhotoImage(file="elements/recruiter_element.png")
+    recruit = Button(r1, image=r1.Img1, border=0, bg="#03DDEE",
+                     relief="raised", activebackground="#03EAFD", command=lambda: rec(root, email1))
+    recruit.place(x=140, y=340)
+    r1.Img2 = PhotoImage(file="elements/client_element.png")
+    recruit2 = Button(r1, image=r1.Img2, border=0, bg="#05edFC",
+                      relief="raised", activebackground="#05F6FD", command=lambda: client_regis(root))
+    recruit2.place(x=360, y=340)
+    r1.bn = PhotoImage(file="elements\\backlogin.png")
+    btn = Button(r1, image=r1.bn, bg='#05e4f6',
+                 bd=0, activebackground="#05e4f6", command=lambda: logi(root))
+    btn.place(x=220, y=550)
+
 def success(root, email1):
     global f
     f1.destroy()
@@ -24,10 +43,8 @@ def success(root, email1):
     mycon.close()
     print(q)
 
-    if q[0][0] == "Employee":
-        rec(root, email1)
-    else:
-        cli(root, email1)
+    
+
 
 
 def submit(root):
@@ -42,7 +59,9 @@ def submit(root):
     if email1 and password:
         for i in total:
             if email1 == i[0] and password == i[1]:
-                return success(root, email1)
+                # Sign in successful
+                # Now choose the working function
+                return chooseFunction(root, email1)
             elif email1 == i[0] and password != i[1]:
                 messagebox.showinfo('Alert!', 'Invalid Credentials')
                 break

@@ -43,6 +43,9 @@ def convertDashDate(date_str):
     return date_obj.strftime("%Y-%m-%d")
 
 def Save():
+    # Also call list_records function
+    show_records(True)
+
     global Row_ID, Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID
     global Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID
     global Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit
@@ -114,7 +117,7 @@ def Save():
                                 passwd=user_pwd, database='mydb')
             cur = mycon.cursor()
             cur.execute(exe1)
-            
+
             Row_ID_entry.delete(0, END)
             Order_ID_entry.delete(0, END)
             Order_Date_entry.delete(0, END)
@@ -207,19 +210,25 @@ def show_all(table):
 # ----------------------------------------------Applicants-----------------------------------------------------
 
 
-def show_applicants(table):
+def show_records(update = False):
     mycon = sql.connect(host='localhost', user='root',
                         passwd=user_pwd, database='mydb')
     cur = mycon.cursor()
-    cur.execute(
-        f'SELECT job.JobRole, client.CName, client.CEmail, client.CAge, client.CLocation, client.CGender, client.CExp, client.CSkills, client.CQualification FROM application JOIN client ON application.cid=client.CID JOIN job ON job.jid=application.jid where job.rid={recid}')
-    applicats = cur.fetchall()
+    if update:
+        cur.execute(
+        f'SELECT * FROM mydb.Entry ORDER BY Row_ID DESC LIMIT 1;')
+    else:
+        cur.execute(
+        f'SELECT * FROM mydb.Entry LIMIT 15;')
+    #    f'SELECT job.JobRole, client.CName, client.CEmail, client.CAge, client.CLocation, client.CGender, client.CExp, client.CSkills, client.CQualification FROM application JOIN client ON application.cid=client.CID JOIN job ON job.jid=application.jid where job.rid={recid}')
+    records = cur.fetchall()
     mycon.close()
-    print(applicats)
+    print(records)
     i = 0
-    for x in applicats:
+    for x in records:
         table.insert('', i, text="", values=(
-            x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8]))
+            x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10],
+            x[11], x[12], x[13], x[14], x[15], x[16], x[17]))
         i += 1
 
 
@@ -352,13 +361,8 @@ def posted():
 
 
 # -----------------------------------------Applications on your recruiters posted jobs----------------------------------------------------------------
-def app():
-    for widget in rt.winfo_children():
-        widget.destroy()
-    for widget in tab.winfo_children():
-        widget.destroy()
-    bgr.destroy()
-
+def list_records():
+    """
     search_l = Label(rt, text="Order By : ", font=('normal', 18), bg="#ffffff")
     search_l.grid(row=0, column=0, padx=10, pady=10)
     global search_d
@@ -370,40 +374,66 @@ def app():
     search = Button(rt, text="Sort", font=('normal', 12, 'bold'),
                     bg="#00b9ed", fg="#ffffff", command=lambda: sort_applicants(table))
     search.grid(row=0, column=3, padx=45, pady=10, ipadx=30)
+    """
 
     scx = Scrollbar(tab, orient="horizontal")
     scy = Scrollbar(tab, orient="vertical")
 
-    table = ttk.Treeview(tab, columns=('JobRole', 'CName', 'CEmail', 'CAge', 'CLocation', 'CGender', 'CExp', 'CSkills', 'CQualification'),
+    global table
+    table = ttk.Treeview(tab, columns=("Order_ID", "Order_Date", "Ship_Date", 
+    "ShipMode_ID","Customer_ID", "Segment_ID", "City_ID", "State_ID", "Postal_Code",
+    "Region_ID", "Product_ID", "Category_ID", "SubCategory_ID",
+    "Sales", "Quantity", "Discount", "Profit"),
                          xscrollcommand=scx.set, yscrollcommand=scy.set)
     scx.pack(side="bottom", fill="x")
     scy.pack(side="right", fill="y")
 
-    table.heading("JobRole", text="Job Role")
-    table.heading("CName", text='Applicants Name')
-    table.heading("CEmail", text='Email')
-    table.heading("CAge", text='Age')
-    table.heading("CLocation", text='Location')
-    table.heading("CGender", text='Gender')
-    table.heading("CExp", text='Experience')
-    table.heading("CSkills", text='Skills')
-    table.heading("CQualification", text='Qualification')
+    table.heading("Order_ID", text="Order_ID")
+    table.heading("Order_Date", text='Order_Date')
+    table.heading("Order_Date", text='Order_Date')
+    table.heading("Ship_Date", text='Ship_Date')
+    table.heading("ShipMode_ID", text='ShipMode_ID')
+
+    table.heading("Customer_ID", text='Customer_ID')
+    table.heading("Segment_ID", text='Segment_ID')
+    table.heading("City_ID", text='City_ID')
+    table.heading("State_ID", text='State_ID')
+    table.heading("Postal_Code", text='Postal_Code')
+    table.heading("Region_ID", text='Region_ID')
+    table.heading("Product_ID", text='Product_ID')
+
+    table.heading("Category_ID", text='Category_ID')
+    table.heading("SubCategory_ID", text='SubCategory_ID')
+    table.heading("Sales", text='Sales')
+    table.heading("Quantity", text='Quantity')
+    table.heading("Discount", text='Discount')
+    table.heading("Profit", text='Profit')
+
 
     table['show'] = 'headings'
 
     scx.config(command=table.xview)
     scy.config(command=table.yview)
 
-    table.column("JobRole", width=150)
-    table.column("CName", width=200)
-    table.column("CEmail", width=100)
-    table.column("CAge", width=50)
-    table.column("CLocation", width=150)
-    table.column("CGender", width=100)
-    table.column("CExp", width=100)
-    table.column("CSkills", width=200)
-    table.column("CQualification", width=150)
-    show_applicants(table)
+    table.column("Order_ID", width=52)
+    table.column("Order_Date", width=52)
+    table.column("Order_Date", width=52)
+    table.column("Ship_Date", width=52)
+    table.column("ShipMode_ID", width=52)
+    table.column("Customer_ID", width=52)
+    table.column("Segment_ID", width=52)
+    table.column("City_ID", width=52)
+    table.column("State_ID", width=52)
+    table.column("Postal_Code", width=52)
+    table.column("Region_ID", width=52)
+    table.column("Product_ID", width=52)
+    table.column("Category_ID", width=52)
+    table.column("SubCategory_ID", width=52)
+    table.column("Sales", width=52)
+    table.column("Quantity", width=52)
+    table.column("Discount", width=52)
+    table.column("Profit", width=52)
+    show_records()
     table.pack(fill="both", expand=1)
 
 
@@ -605,6 +635,7 @@ def rec(root, email1):
     # rt.place(x=60, y=520)
     tab = Frame(root, bg="#ffffff")
     tab.place(x=70, y=492, width=920, height=170)
+    list_records()
     
     """
     bgrf = Frame(root, width=540, height=420)
@@ -619,5 +650,7 @@ def rec(root, email1):
     # Save_Record = Button(root, text="Save Record", font=(
     #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
     Save_Record.place(x=475, y=447)
+
+    
 
     

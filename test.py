@@ -27,8 +27,8 @@ cursor = db.cursor()
 # cursor.execute(exe1)
 # db.commit()
 
-exe1 = "Select * FROM mydb.entry"
-# exe1 = "DELETE FROM mydb.entry WHERE Profit = 35.6"
+exe1 = "DROP TABLE mydb.entry"
+# exe1 = "DELETE FROM mydb.entry WHERE Order_ID = 6"
 cursor.execute(exe1)
 # db.commit()
 
