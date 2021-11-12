@@ -349,7 +349,7 @@ def rec(root, email1):
     bn.place(x=800, y=75)
 
     # Left
-    lf = Frame(root, width=920, height=160, bg="#fff33f")
+    lf = Frame(root, width=920, height=160, bg="#ffffff")
     # lf.place(x=70, y=220)
     lf.place(x=70, y=220)
 
@@ -366,22 +366,22 @@ def rec(root, email1):
     lf.columnconfigure(5, weight=3)
 
     # Column 0
-    Row_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Row ID")
+    Row_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Row ID")
     Row_ID_label.grid(column=0, row=0, sticky=W)
 
-    Order_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Order ID")
+    Order_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Order ID")
     Order_ID_label.grid(column=0, row=1, sticky=W)
 
-    Order_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Order Date")
+    Order_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Order Date")
     Order_Date_label.grid(column=0, row=2, sticky=W)
 
-    Ship_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Ship Date")
+    Ship_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Ship Date")
     Ship_Date_label.grid(column=0, row=3, sticky=W)
     
-    ShipMode_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Ship Mode")
+    ShipMode_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Ship Mode")
     ShipMode_ID_label.grid(column=0, row=4, sticky=W)
     
-    Customer_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Customer ID")
+    Customer_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Customer ID")
     Customer_ID_label.grid(column=0, row=5, sticky=W)
     
     # Colum 1
@@ -408,22 +408,22 @@ def rec(root, email1):
 
 
     # Column 2
-    Segment_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Segment")
+    Segment_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Segment")
     Segment_ID_label.grid(column=2, row=0, padx = (30, 0), sticky=W)
 
-    City_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="City ID")
+    City_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="City ID")
     City_ID_label.grid(column=2, row=1, padx = (30, 0), sticky=W)
 
-    State_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="State ID")
+    State_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="State ID")
     State_ID_label.grid(column=2, row=2, padx = (30, 0), sticky=W)
 
-    Postal_Code_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Postal Code")
+    Postal_Code_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Postal Code")
     Postal_Code_label.grid(column=2, row=3, padx = (30, 0), sticky=W)
     
-    Region_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Region ID")
+    Region_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Region ID")
     Region_ID_label.grid(column=2, row=4, padx = (30, 0), sticky=W)
     
-    Product_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Product ID")
+    Product_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Product ID")
     Product_ID_label.grid(column=2, row=5, padx = (30, 0), sticky=W)
 
 
@@ -449,22 +449,22 @@ def rec(root, email1):
     Product_ID_entry.grid(column=3, row=5, sticky=W)
 
     # Column 4
-    Category_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Category ID")
+    Category_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Category ID")
     Category_ID_label.grid(column=4, row=0, padx = (30, 0), sticky=W)
 
-    SubCategory_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Sub-Cat ID")
+    SubCategory_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Sub-Cat ID")
     SubCategory_ID_label.grid(column=4, row=1, padx = (30, 0), sticky=W)
 
-    Sales_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Sales ($)")
+    Sales_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Sales ($)")
     Sales_label.grid(column=4, row=2, padx = (30, 0), sticky=W)
 
-    Quantity_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Quantity")
+    Quantity_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Quantity")
     Quantity_label.grid(column=4, row=3, padx = (30, 0), sticky=W)
 
-    Discount_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Discount")
+    Discount_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Discount")
     Discount_label.grid(column=4, row=4, padx = (30, 0), sticky=W)
 
-    Profit_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#00B9ED", text="Profit")
+    Profit_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Profit")
     Profit_label.grid(column=4, row=5, padx = (30, 0), sticky=W)
 
     # Column 5
@@ -506,12 +506,12 @@ def rec(root, email1):
     global rt, tab, bgr
     # rt = Frame(root, width=95, height=200, bg="#ff33ff")
     # rt.place(x=60, y=520)
-    tab = Frame(root, bg="#ff33ff")
+    tab = Frame(root, bg="#ffffff")
     tab.place(x=70, y=492, width=920, height=170)
     
     """
     bgrf = Frame(root, width=540, height=420)
     bgrf.load = PhotoImage(file="elements\\bgr.png")
-    bgr = Label(root, image=bgrf.load, bg="#00b9ed")
+    bgr = Label(root, image=bgrf.load, bg="#161E54")
     bgr.place(x=440, y=210)
     """
