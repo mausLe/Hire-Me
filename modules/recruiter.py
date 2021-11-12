@@ -7,8 +7,8 @@ import modules.login as l
 from modules.creds import user_pwd
 
 def get_details(email):
-    global name, company, gen, recid
-    q = f'select RName,CompanyName,RGender,RID from mydb.recruiter where REmail="{email}"'
+    global name, code, pos, role
+    q = f'select name, email, position, type from Users where Email="{email}"'
     mycon = sql.connect(host='localhost', user='root',
                         passwd=user_pwd, database='mydb')
     cur = mycon.cursor()
@@ -17,9 +17,9 @@ def get_details(email):
     mycon.close()
 
     name = d[0][0]
-    company = d[0][1]
-    gen = d[0][2]
-    recid = d[0][3]
+    code = d[0][1] # I replaced email -> code
+    pos = d[0][2]
+    role = d[0][3]
 
 
 def logi(root):
@@ -333,7 +333,7 @@ def rec(root, email1):
 
     get_details(email)
 
-    bg.load = PhotoImage(file=f'elements\\bg{gen}.png')
+    bg.load = PhotoImage(file=f'elements\\bgM.png')
     img = Label(root, image=bg.load)
     img.place(x=0, y=0)
 
@@ -341,9 +341,9 @@ def rec(root, email1):
     nm = Label(root, text=f'{name}', font=(
         'normal', 36, 'bold'), bg="#ffffff", fg="#0A3D62")
     nm.place(x=300, y=50)
-    cp = Label(root, text=f'{company}', font=(
+    pos_l = Label(root, text=f'{pos}', font=(
         'normal', 24), bg="#ffffff", fg="#0A3D62")
-    cp.place(x=300, y=120)
+    pos_l.place(x=300, y=120)
     bn = Button(root, text="LOGOUT", font=(
         'normal', 20), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
     bn.place(x=800, y=75)

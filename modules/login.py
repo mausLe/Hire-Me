@@ -42,6 +42,7 @@ def submit(root):
     if email1 and password:
         for i in total:
             if email1 == i[0] and password == i[1]:
+                messagebox.showinfo('Info!', 'Login Sucessful')
                 return success(root, email1)
             elif email1 == i[0] and password != i[1]:
                 messagebox.showinfo('Alert!', 'Invalid Credentials')
