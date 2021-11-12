@@ -5,6 +5,7 @@ from tkinter_uix.Entry import Entry
 import mysql.connector as sql
 import modules.login as l
 from modules.creds import user_pwd
+import datetime
 
 def get_details(email):
     global name, code, pos, role
@@ -29,54 +30,102 @@ def logi(root):
         pass
     l.log(root)
 
+def convertSlashDate(date_str):
+    format_str = "%d/%m/%Y"
+    date_obj = datetime.datetime.strptime(date_str, format_str)
 
-def submit_record():
-    global Row_ID, Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code, Regieon_ID, Product_ID, Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit
+    return date_obj.strftime("%Y-%m-%d")
+
+def convertDashDate(date_str):
+    format_str = "%d-%m-%Y"
+    date_obj = datetime.datetime.strptime(date_str, format_str)
+
+    return date_obj.strftime("%Y-%m-%d")
+
+def Save():
+    global Row_ID, Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID
+    global Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID
+    global Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit
     Row_ID = Row_ID_entry.get()
     Order_ID = Order_ID_entry.get()
     Order_Date = Order_Date_entry.get()
     Ship_Date = Ship_Date_entry.get()
-    ShipMode_ID = ShipMode_ID_entry.get()
-    Customer_ID = Customer_ID_entry.get()
-    Segment_ID = Segment_ID_entry.get()
-    City_ID = City_ID_entry.get()
-    State_ID = State_ID_entry.get()
-    Postal_Code = Postal_Code_entry.get()
-    Regieon_ID = Regieon_ID_entry.get()
-    Product_ID = Product_ID_entry.get()
-    Category_ID = Category_ID_entry.get()
-    SubCategory_ID = SubCategory_ID_entry.get()
-    Sales = Sales_entry.get()
-    Quantity = Quantity_entry.get()
-    Discount = Discount_entry.get()
-    Profit = Profit_entry.get()
+    # Convert DD/MM/YYYY -> YYYY-MM-DD
+    try:
+        Order_Date.index("/")
+        Order_Date = convertSlashDate(Order_Date)
+    except:
+        Order_Date = convertDashDate(Order_Date)
+    print("Order Date: ", type(Order_Date))
 
-    role1 = role.get()
-    jtype1 = jtype.get()
-    qual1 = qual.get()
-    exp1 = exp.get()
-    sal1 = sal.get()
-    print(role1, jtype1, qual1, exp1, sal1)
-    if role1 and jtype1 and qual1 and exp1 and sal1:
-        if jtype1 == "Select":
-            messagebox.showinfo('ALERT!', 'Please provide Job Type')
-        else:
-            exe1 = f'INSERT INTO mydb.Job(RID, JID, JobRole, JobType, Qualification, MinExp, Salary) VALUES({recid}, NULL, "{role1}", "{jtype1}", "{qual1}", {exp1}, {sal1})'
-            try:
-                mycon = sql.connect(host='localhost', user='root',
-                                    passwd=user_pwd, database='mydb')
-                cur = mycon.cursor()
-                cur.execute(exe1)
-                role.delete(0, END)
-                jtype.delete(0, END)
-                qual.delete(0, END)
-                exp.delete(0, END)
-                sal.delete(0, END)
-                mycon.commit()
-                mycon.close()
-                messagebox.showinfo('SUCCESS!', 'You have successfully created a Job')
-            except:
-                pass
+    try:
+        Ship_Date.index("/")
+        Ship_Date = convertSlashDate(Ship_Date)
+    except:
+        Ship_Date = convertDashDate(Ship_Date)
+    print("Ship Date: ", Ship_Date)
+    # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
+    # 2, 5, 1112.11, 20, 0.3, 340.5]
+    
+    ShipMode_ID = int(ShipMode_ID_cbbox.get())
+    Customer_ID = Customer_ID_entry.get()
+    Segment_ID = int(Segment_ID_cbbox.get())
+    City_ID = int(City_ID_entry.get())
+    State_ID = int(State_ID_entry.get())
+    Postal_Code = int(Postal_Code_entry.get())
+    Region_ID = int(Region_ID_cbbox.get())
+    Product_ID = Product_ID_entry.get()
+    Category_ID = int(Category_ID_cbbox.get())
+    SubCategory_ID = int(SubCategory_ID_entry.get())
+    Sales = float(Sales_entry.get())
+    Quantity = int(Quantity_entry.get())
+    Discount = float(Discount_entry.get())
+    Profit = float(Profit_entry.get())
+
+
+    myList = [Order_ID, Order_Date, Ship_Date, ShipMode_ID,
+    Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code,
+    Region_ID, Product_ID, Category_ID, SubCategory_ID,
+    Sales, Quantity, Discount, Profit]
+
+    print("My List: ", myList)
+
+    temp = -1 # Find the pos of "" in myList
+    try:
+        temp = myList.index("")
+    except:
+        pass
+
+
+    if temp == -1:
+        exe1 = f'''INSERT INTO mydb.Entry(
+        Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, 
+        Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID, 
+        Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit)
+
+        VALUES("{Order_ID}", "{Order_Date}", "{Ship_Date}", "{ShipMode_ID}", "{Customer_ID}", 
+        "{Segment_ID}", "{City_ID}", "{State_ID}", "{Postal_Code}", "{Region_ID}", "{Product_ID}", 
+        "{Category_ID}", "{SubCategory_ID}", "{Sales}", "{Quantity}", "{Discount}", "{Profit}")'''
+        
+        # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
+
+        try:
+            mycon = sql.connect(host='localhost', user='root',
+                                passwd=user_pwd, database='mydb')
+            cur = mycon.cursor()
+            cur.execute(exe1)
+            # role.delete(0, END)
+            # jtype.delete(0, END)
+            # qual.delete(0, END)
+            # exp.delete(0, END)
+            # sal.delete(0, END)
+            mycon.commit()
+            mycon.close()
+
+            
+            messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
+        except:
+            messagebox.showinfo('FAILED!', 'Faild to creat a new record')
     else:
         messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
 
@@ -346,6 +395,10 @@ def app():
 # ---------------------------------------------------------------------------------------------------------------------------
 def rec(root, email1):
     global email
+    global Row_ID_entry, Order_ID_entry, Order_Date_entry, Ship_Date_entry, ShipMode_ID_cbbox, Customer_ID_entry
+    global Segment_ID_cbbox, City_ID_entry, State_ID_entry, Postal_Code_entry, Region_ID_cbbox, Product_ID_entry
+    global Category_ID_cbbox, SubCategory_ID_entry, Sales_entry, Quantity_entry, Discount_entry, Profit_entry
+
     email = email1
     bg = Frame(root, width=1050, height=700)
     bg.place(x=0, y=0)
@@ -410,10 +463,10 @@ def rec(root, email1):
     Order_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
     Order_ID_entry.grid(column=1, row=1, sticky=W)
 
-    Order_Date_entry = Entry(lf,  width=15, placeholder="E.g: 11/8/2017")
+    Order_Date_entry = Entry(lf,  width=15, placeholder="E.g: DD/MM/YYYY")
     Order_Date_entry.grid(column=1, row=2, sticky=W)
 
-    Ship_Date_entry = Entry(lf,  width=15, placeholder="E.g: 11/11/2017")
+    Ship_Date_entry = Entry(lf,  width=15, placeholder="E.g: DD/MM/YYYY")
     Ship_Date_entry.grid(column=1, row=3, sticky=W)
 
     # Combobox
@@ -538,7 +591,7 @@ def rec(root, email1):
     bgr.place(x=440, y=210)
     """
     root.bn = PhotoImage(file="elements\\floppy.png") 
-    Save_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", image=root.bn, text="Save Record", compound="left") 
+    Save_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", image=root.bn, text="Save Record", compound="left", command=Save) 
 
 
     # Save_Record = Button(root, text="Save Record", font=(

@@ -18,26 +18,34 @@ CREATE TABLE IF NOT EXISTS mydb.Users(
 # 	
 # Sales	Quantity	Discount	Profit
 
+Create_Entry_Table_1 = """
+CREATE TABLE IF NOT EXISTS mydb.Entry1 (
+  Row_ID INT NOT NULL AUTO_INCREMENT,
+  Order_ID VARCHAR(20) NOT NULL,
+  Order_Date DATE NOT NULL,
+  Ship_Date	DATE NOT NULL,
+  ShipMode_ID	INT NOT NULL,
+  Customer_ID VARCHAR(20) NOT NULL,  
+  PRIMARY KEY (Row_ID)
+  );
+  """
+
 Create_Entry_Table = """
 CREATE TABLE IF NOT EXISTS mydb.Entry (
   Row_ID INT NOT NULL AUTO_INCREMENT,
   Order_ID VARCHAR(20) NOT NULL,
-
   Order_Date DATE NOT NULL,
   Ship_Date	DATE NOT NULL,
   ShipMode_ID	INT NOT NULL,
   Customer_ID VARCHAR(20) NOT NULL,
-
   Segment_ID INT NOT NULL, 
   City_ID	INT NOT NULL,
   State_ID	INT NOT NULL, 
   Postal_Code	INT NOT NULL, 
-  Regieon_ID INT NOT NULL,
-
+  Region_ID INT NOT NULL,
   Product_ID	VARCHAR(20) NOT NULL,
   Category_ID	INT NOT NULL,
   SubCategory_ID INT NOT NULL,
-
   Sales	DOUBLE(14, 6) NOT NULL,
   Quantity INT NOT NULL, 
   Discount DOUBLE(5, 4) NOT NULL,
