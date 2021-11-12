@@ -24,7 +24,7 @@ def success(root, email1):
     mycon.close()
     print(q)
 
-    if q[0][0] == "recruiter":
+    if q[0][0] == "Employee":
         rec(root, email1)
     else:
         cli(root, email1)
@@ -34,7 +34,7 @@ def submit(root):
     mycon = sql.connect(host='localhost', user='root',
                         passwd=user_pwd, database='mydb')
     cur = mycon.cursor()
-    cur.execute('select email,password from users')
+    cur.execute('select email, password from users')
     total = cur.fetchall()
     mycon.close()
     email1 = email.get()
@@ -59,7 +59,8 @@ def reg(root):
         f1.destroy()
     except:
         pass
-    mai(root)
+    recruiter_regis(root)
+    # mai(root)
 
 
 def log(root):
@@ -77,10 +78,10 @@ def log(root):
     img.place(x=0, y=0)
 
     # Email
-    email_l = Label(f1, text="Email : ", bg='#FFFFFF',
+    email_l = Label(f1, text="Employee Code : ", bg='#FFFFFF',
                     font=('normal', 20, 'bold'), fg="#00B9ED")
-    email_l.place(x=620, y=300)
-    email = Entry(f1, width=24, placeholder="Enter your Email..")
+    email_l.place(x=485, y=300)
+    email = Entry(f1, width=24, placeholder="Enter your Employee Code")
     email.place(x=720, y=300)
 
     # Password

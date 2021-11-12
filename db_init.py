@@ -4,6 +4,7 @@ from cv_schema_init import *
 
 mycon = sql.connect(host='localhost', user='root', passwd=user_pwd)
 cur = mycon.cursor()
+# cur.execute("DROP DATABASE mydb")
 cur.execute(CREATE_SCHEMA)
 cur.execute(Create_users_Table)
 cur.execute(Create_recruiter_Table)

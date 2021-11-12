@@ -6,10 +6,11 @@ Create_users_Table = """
 CREATE TABLE IF NOT EXISTS mydb.Users( 
         name VARCHAR(45) NOT NULL, 
         email Varchar(120) Not NULL,   
+        position VARCHAR(45) NOT NULL, 
         type VARCHAR(45) NOT NULL,
         password VARCHAR(45) NULL,  
         UNIQUE INDEX email_UNIQUE (email), 
-        CHECK (type in ('Recruiter','Client')),
+        CHECK (type in ('Admin','Manager', 'Employee')),
         PRIMARY KEY (email)   );
   """
 Create_recruiter_Table = """
