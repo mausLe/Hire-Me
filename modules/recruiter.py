@@ -114,11 +114,26 @@ def Save():
                                 passwd=user_pwd, database='mydb')
             cur = mycon.cursor()
             cur.execute(exe1)
-            # role.delete(0, END)
-            # jtype.delete(0, END)
-            # qual.delete(0, END)
-            # exp.delete(0, END)
-            # sal.delete(0, END)
+            
+            Row_ID_entry.delete(0, END)
+            Order_ID_entry.delete(0, END)
+            Order_Date_entry.delete(0, END)
+            Ship_Date_entry.delete(0, END)
+            ShipMode_ID_cbbox.delete(0, END)
+            Customer_ID_entry.delete(0, END)
+            Segment_ID_cbbox.delete(0, END)
+            City_ID_entry.delete(0, END)
+            State_ID_entry.delete(0, END)
+            Postal_Code_entry.delete(0, END)
+            Region_ID_cbbox.delete(0, END)
+            Product_ID_entry.delete(0, END)
+            Category_ID_cbbox.delete(0, END)
+            SubCategory_ID_entry.delete(0, END)
+            Sales_entry.delete(0, END)
+            Quantity_entry.delete(0, END)
+            Discount_entry.delete(0, END)
+            Profit_entry.delete(0, END)
+
             mycon.commit()
             mycon.close()
 
@@ -560,6 +575,13 @@ def rec(root, email1):
 
     Profit_entry = Entry(lf,  width=15, placeholder="E.g: 34.47")
     Profit_entry.grid(column=5, row=5, sticky=W)
+
+    # global myWidgets
+    # myWidgets = [Row_ID_entry, Order_ID_entry, Order_Date_entry, Ship_Date_entry, 
+    # ShipMode_ID_cbbox, Customer_ID_entry, Segment_ID_cbbox, City_ID_entry, 
+    # State_ID_entry, Postal_Code_entry, Region_ID_cbbox, Product_ID_entry, 
+    # Category_ID_cbbox, SubCategory_ID_entry, Sales_entry, Quantity_entry, 
+    # Discount_entry, Profit_entry]
 
     # cj = Button(lf, text="Post a Job", font=(
     #     'normal', 20), bg="#b32e2e", fg="#ffffff", command=create)
