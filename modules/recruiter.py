@@ -43,7 +43,20 @@ def convertDashDate(date_str):
     return date_obj.strftime("%Y-%m-%d")
 
 def Save():
-    # Also call list_records function
+    myList = [Order_ID_entry, Order_Date_entry, Ship_Date_entry, ShipMode_ID_cbbox,
+    Customer_ID_entry, Segment_ID_cbbox, City_ID_entry, State_ID_entry, Postal_Code_entry,
+    Region_ID_cbbox, Product_ID_entry, Category_ID_cbbox, SubCategory_ID_entry,
+    Sales_entry, Quantity_entry, Discount_entry, Profit_entry]
+
+    temp = -1 # Find the pos of "" in myList
+    try:
+        temp = myList.index("")
+    except:
+        pass
+    
+    if temp == -1:
+        messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
+        return
     
 
     # Row_ID = Row_ID_entry.get()
@@ -56,7 +69,6 @@ def Save():
         Order_Date = convertSlashDate(Order_Date)
     except:
         Order_Date = convertDashDate(Order_Date)
-    # print("Order Date: ", type(Order_Date))
 
     try:
         Ship_Date.index("/")
@@ -64,7 +76,7 @@ def Save():
     except:
         Ship_Date = convertDashDate(Ship_Date)
     # print("Ship Date: ", Ship_Date)
-    # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
+    # ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
     # 2, 5, 1112.11, 20, 0.3, 340.5]
     
     ShipMode_ID = int(ShipMode_ID_cbbox.get())
@@ -82,69 +94,53 @@ def Save():
     Discount = float(Discount_entry.get())
     Profit = float(Profit_entry.get())
 
+    
+    exe1 = f'''INSERT INTO mydb.Entry(
+    Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, 
+    Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID, 
+    Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit)
 
-    myList = [Order_ID, Order_Date, Ship_Date, ShipMode_ID,
-    Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code,
-    Region_ID, Product_ID, Category_ID, SubCategory_ID,
-    Sales, Quantity, Discount, Profit]
-
-    print("My List: ", myList)
-
-    temp = -1 # Find the pos of "" in myList
-    try:
-        temp = myList.index("")
-    except:
-        pass
-
-
-    if temp == -1:
-        exe1 = f'''INSERT INTO mydb.Entry(
-        Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, 
-        Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID, 
-        Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit)
-
-        VALUES("{Order_ID}", "{Order_Date}", "{Ship_Date}", "{ShipMode_ID}", "{Customer_ID}", 
-        "{Segment_ID}", "{City_ID}", "{State_ID}", "{Postal_Code}", "{Region_ID}", "{Product_ID}", 
-        "{Category_ID}", "{SubCategory_ID}", "{Sales}", "{Quantity}", "{Discount}", "{Profit}")'''
+    VALUES("{Order_ID}", "{Order_Date}", "{Ship_Date}", "{ShipMode_ID}", "{Customer_ID}", 
+    "{Segment_ID}", "{City_ID}", "{State_ID}", "{Postal_Code}", "{Region_ID}", "{Product_ID}", 
+    "{Category_ID}", "{SubCategory_ID}", "{Sales}", "{Quantity}", "{Discount}", "{Profit}")'''
         
-        # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
+    # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
 
-        try:
-            mycon = sql.connect(host='localhost', user='root',
-                                passwd=user_pwd, database='mydb')
-            cur = mycon.cursor()
-            cur.execute(exe1)
+    try:
+        mycon = sql.connect(host='localhost', user='root',
+                            passwd=user_pwd, database='mydb')
+        cur = mycon.cursor()
+        cur.execute(exe1)
 
-            Row_ID_entry.delete(0, END)
-            Order_ID_entry.delete(0, END)
-            Order_Date_entry.delete(0, END)
-            Ship_Date_entry.delete(0, END)
-            ShipMode_ID_cbbox.delete(0, END)
-            Customer_ID_entry.delete(0, END)
-            Segment_ID_cbbox.delete(0, END)
-            City_ID_entry.delete(0, END)
-            State_ID_entry.delete(0, END)
-            Postal_Code_entry.delete(0, END)
-            Region_ID_cbbox.delete(0, END)
-            Product_ID_entry.delete(0, END)
-            Category_ID_cbbox.delete(0, END)
-            SubCategory_ID_entry.delete(0, END)
-            Sales_entry.delete(0, END)
-            Quantity_entry.delete(0, END)
-            Discount_entry.delete(0, END)
-            Profit_entry.delete(0, END)
+        Row_ID_entry.delete(0, END)
+        Order_ID_entry.delete(0, END)
+        Order_Date_entry.delete(0, END)
+        Ship_Date_entry.delete(0, END)
+        ShipMode_ID_cbbox.delete(0, END)
+        Customer_ID_entry.delete(0, END)
+        Segment_ID_cbbox.delete(0, END)
+        City_ID_entry.delete(0, END)
+        State_ID_entry.delete(0, END)
+        Postal_Code_entry.delete(0, END)
+        Region_ID_cbbox.delete(0, END)
+        Product_ID_entry.delete(0, END)
+        Category_ID_cbbox.delete(0, END)
+        SubCategory_ID_entry.delete(0, END)
+        Sales_entry.delete(0, END)
+        Quantity_entry.delete(0, END)
+        Discount_entry.delete(0, END)
+        Profit_entry.delete(0, END)
 
-            mycon.commit()
-            mycon.close()
+        mycon.commit()
+        mycon.close()
 
-            # Also call list_records function
-            show_records(True)
+        # Also call list_records function
+        show_records(True)
 
-            messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
-        except:
-            messagebox.showinfo('FAILED!', 'Faild to creat a new record')
-    else:
-        messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
+        messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
+    except:
+        messagebox.showinfo('FAILED!', 'Faild to create a new record')
+    
     
 
 
@@ -180,20 +176,6 @@ def Search():
             Order_Date1 = " DATE('" + convertSlashDate(Order_Date1) + "') "
         except:
             Order_Date1 = " DATE('" + convertDashDate(Order_Date1) + "') "
-
-    # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
-    # 2, 5, 1112.11, 20, 0.3, 340.5]
-    
-    # ShipMode_ID1 = int(ShipMode_ID_cbbox1.get())
-    # Segment_ID1 = int(Segment_ID_cbbox1.get())
-    # City_ID1 = int(City_ID_entry1.get())
-    # SubCategory_ID1 = int(SubCategory_ID_entry1.get())
-    # Quantity1 = int(Quantity_entry1.get())    
-    # Sales1 = float(Sales_entry1.get())
-    # Discount1 = float(Discount_entry1.get())
-    # Profit1 = float(Profit_entry1.get())
-
-    
     
     ShipMode_ID1 = ShipMode_ID_cbbox1.get()
     if ShipMode_ID1 != "":
@@ -236,10 +218,9 @@ def Search():
     "Product_ID" : Product_ID1, "SubCategory_ID" : SubCategory_ID1, 
     "Sales" : Sales1, "Quantity" : Quantity1, "Discount" : Discount1, "Profit" : Profit1}
 
-    print("My List: ", myDict)
+    # print("My List: ", myDict)
 
     blank = count_blank(myDict.values())
-    print("There are {} boxes is unfilled".format(blank))
 
     if blank == 12 and Query1 == "":
         exe1 = ''' SELECT * 
@@ -269,12 +250,12 @@ def Search():
             if value != "" and value != "''":
                 filter += key + " = {} AND ".format(value)
         filter = filter[: -4]
-        print("My Filter: ", filter)
 
         exe1 = ''' SELECT * 
                     FROM mydb.Entry 
                     {}
                     LIMIT 15;'''.format(filter)
+        # print("My Query: ", exe1)
 
         # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
 
@@ -325,66 +306,6 @@ def Search():
         except:
             messagebox.showinfo('FAILED!', 'Failed to search for your record')
     
-
-# -------------------------------------------- Sort Queries --------------------------------------------------------
-def sort_all(table):
-    criteria = search_d.get()
-    if(criteria == "Select"):
-        pass
-    else:
-        table.delete(*table.get_children())
-        mycon = sql.connect(host='localhost', user='root',
-                            passwd=user_pwd, database='mydb')
-
-        cur = mycon.cursor()
-        cur.execute(
-            f'select RID,JID, JobRole, JobType, Qualification, MinExp, Salary FROM mydb.Job where RID={recid} order by {criteria}')
-        all_jobs = cur.fetchall()
-        mycon.close()
-    i = 0
-    for r in all_jobs:
-        table.insert('', i, text="", values=(
-            r[1], r[2], r[3], r[4], r[5], r[6]))
-        i += 1
-
-
-def sort_applicants(table):
-    criteria = search_d.get()
-    if(criteria == "Select"):
-        pass
-    else:
-        table.delete(*table.get_children())
-        mycon = sql.connect(host='localhost', user='root',
-                            passwd=user_pwd, database='mydb')
-
-        cur = mycon.cursor()
-        cur.execute(
-            f'SELECT job.JobRole, client.CName, client.CEmail, client.CAge, client.CLocation, client.CGender, client.CExp, client.CSkills, client.CQualification FROM application JOIN client ON application.cid=client.CID JOIN job ON job.jid=application.jid where job.rid={recid} order by {criteria}')
-        applicats = cur.fetchall()
-        mycon.close()
-        print(applicats)
-        i = 0
-        for x in applicats:
-            table.insert('', i, text="", values=(
-                x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8]))
-            i += 1
-# ----------------------------------------------Posted jobs Query-----------------------------------------------
-
-
-def show_all(table):
-    mycon = sql.connect(host='localhost', user='root',
-                        passwd=user_pwd, database='mydb')
-    cur = mycon.cursor()
-    cur.execute(
-        f'select RID,JID, JobRole, JobType, Qualification, MinExp, Salary FROM mydb.Job where RID={recid}')
-    all_jobs = cur.fetchall()
-    mycon.close()
-    i = 0
-    for r in all_jobs:
-        table.insert('', i, text="", values=(
-            r[1], r[2], r[3], r[4], r[5], r[6]))
-        i += 1
-
 # ----------------------------------------------Applicants-----------------------------------------------------
 
 
@@ -394,14 +315,13 @@ def show_records(update = False):
     cur = mycon.cursor()
     if update:
         cur.execute(
-        f'SELECT * FROM mydb.Entry ORDER BY Row_ID DESC LIMIT 1;')
+        f'SELECT * FROM mydb.Entry ORDER BY Row_ID DESC LIMIT 15;')
     else:
         cur.execute(
         f'SELECT * FROM mydb.Entry LIMIT 15;')
     #    f'SELECT job.JobRole, client.CName, client.CEmail, client.CAge, client.CLocation, client.CGender, client.CExp, client.CSkills, client.CQualification FROM application JOIN client ON application.cid=client.CID JOIN job ON job.jid=application.jid where job.rid={recid}')
     records = cur.fetchall()
     mycon.close()
-    print(records)
     i = 0
 
     for item in table.get_children():
@@ -497,77 +417,8 @@ def deletjob(table):
     messagebox.showinfo('Thanks', 'Your Job has been Deleted')
     posted()
 
-# ----------------------------------------------Posted Jobs by Recruiter----------------------------------------------------
-
-
-def posted():
-    for widget in rt.winfo_children():
-        widget.destroy()
-    for widget in tab.winfo_children():
-        widget.destroy()
-    bgr.destroy()
-
-    search_l = Label(rt, text="Order By : ", font=(
-        'normal', 18), bg="#ffffff")
-    search_l.grid(row=0, column=0, padx=10, pady=10)
-    global search_d
-    search_d = ttk.Combobox(rt, width=12, font=(
-        'normal', 18), state='readonly')
-    search_d['values'] = ('Select', 'JobRole', 'JobType')
-    search_d.current(0)
-    search_d.grid(row=0, column=2, padx=0, pady=10)
-    search = Button(rt, text="Sort", font=('normal', 12, 'bold'),
-                    bg="#00b9ed", fg="#ffffff", command=lambda: sort_all(table))
-    search.grid(row=0, column=3, padx=10, pady=10, ipadx=15)
-    dlt = Button(rt, text="Delete", font=('normal', 12, 'bold'),
-                 bg="#00b9ed", fg="#ffffff", command=lambda: deletjob(table))
-    dlt.grid(row=0, column=4, padx=10, pady=10, ipadx=5)
-
-    scx = Scrollbar(tab, orient="horizontal")
-    scy = Scrollbar(tab, orient="vertical")
-
-    table = ttk.Treeview(tab, columns=('JID', 'JobRole', 'JobType', 'Qualification', 'MinExp', 'Salary'),
-                         xscrollcommand=scx.set, yscrollcommand=scy.set)
-    scx.pack(side="bottom", fill="x")
-    scy.pack(side="right", fill="y")
-    table.heading("JID", text="JobID")
-    table.heading("JobRole", text="Role")
-    table.heading("JobType", text='Type')
-    table.heading("Qualification", text='Qualification')
-    table.heading("MinExp", text='MinExp')
-    table.heading("Salary", text="Salary")
-
-    table['show'] = 'headings'
-
-    scx.config(command=table.xview)
-    scy.config(command=table.yview)
-
-    table.column("JID", width=100)
-    table.column("JobRole", width=150)
-    table.column("JobType", width=150)
-    table.column("Qualification", width=100)
-    table.column("MinExp", width=100)
-    table.column("Salary", width=150)
-    show_all(table)
-    table.pack(fill="both", expand=1)
-
-
 # -----------------------------------------Applications on your recruiters posted jobs----------------------------------------------------------------
 def list_records():
-    """
-    search_l = Label(rt, text="Order By : ", font=('normal', 18), bg="#ffffff")
-    search_l.grid(row=0, column=0, padx=10, pady=10)
-    global search_d
-    search_d = ttk.Combobox(rt, width=12, font=(
-        'normal', 18), state='readonly')
-    search_d['values'] = ('Select', 'JobRole', 'CName', 'CLocation')
-    search_d.current(0)
-    search_d.grid(row=0, column=2, padx=10, pady=10)
-    search = Button(rt, text="Sort", font=('normal', 12, 'bold'),
-                    bg="#00b9ed", fg="#ffffff", command=lambda: sort_applicants(table))
-    search.grid(row=0, column=3, padx=45, pady=10, ipadx=30)
-    """
-
     scx = Scrollbar(tab, orient="horizontal")
     scy = Scrollbar(tab, orient="vertical")
 
@@ -829,19 +680,14 @@ def fill_in(root, email1):
     tab.place(x=70, y=492, width=920, height=170)
     list_records()
     
-    """
-    bgrf = Frame(root, width=540, height=420)
-    bgrf.load = PhotoImage(file="elements\\bgr.png")
-    bgr = Label(root, image=bgrf.load, bg="#161E54")
-    bgr.place(x=440, y=210)
-    """
     root.bn = PhotoImage(file="elements\\floppy.png") 
     Save_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", image=root.bn, text="Save Record", compound="left", command=Save) 
-
-
-    # Save_Record = Button(root, text="Save Record", font=(
-    #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
     Save_Record.place(x=475, y=447)
+
+    root.fill_in = PhotoImage(file="elements\\query.png") 
+    Fill_In_btn = Button(root, font=('normal', 13, "bold"), bg='#FBF3E4', activebackground="#ffffff", 
+    image=root.fill_in, text="  Switch to Query ", compound="left", command=lambda: query(root, email1)) 
+    Fill_In_btn.place(x=150, y=447)
 
 
 # Query Record---------------------------------------------------------------------------------------------------------------------------
@@ -972,7 +818,7 @@ def query(root, email1):
 
     ####
     # Column 4-5
-    Query_label = Label(lf, width=20, bg='#FFFFFF', font=('normal', 13, 'bold'), fg="#000D6B", text="SQL Query")
+    Query_label = Label(lf, width=20, bg='#FFFFFF', font=('normal', 13, 'bold'), fg="#000D6B", text="SQL query Entry table")
     Query_label.grid(column=4, row=0, padx = (30, 0), sticky=N, columnspan=2)
 
     # Column 4-5
@@ -988,12 +834,18 @@ def query(root, email1):
     list_records()
 
     root.bn = PhotoImage(file="elements\\search.png") 
-    Search_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", 
-    image=root.bn, text="Search", compound="left", command=Search) 
+    Search_Record = Button(root, font=('normal', 13, "bold"), bg='#FFFFFF', activebackground="#ffffff", 
+    image=root.bn, text="Search", compound="left", command=Search)
+    Search_Record.place(x=475, y=447)
+
+    root.fill_in = PhotoImage(file="elements\\fill-in.png") 
+    Fill_In_btn = Button(root, font=('normal', 13, "bold"), bg='#FBF3E4', activebackground="#ffffff", 
+    image=root.fill_in, text="  Switch to Fill-IN ", compound="left", command=lambda: fill_in(root, email1)) 
+    Fill_In_btn.place(x=150, y=447)
 
     # Save_Record = Button(root, text="Save Record", font=(
     #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
-    Search_Record.place(x=475, y=447)
+    
     
 
     
