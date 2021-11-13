@@ -44,9 +44,9 @@ def convertDashDate(date_str):
 
 def Save():
     # Also call list_records function
-    show_records(True)
+    
 
-    Row_ID = Row_ID_entry.get()
+    # Row_ID = Row_ID_entry.get()
     Order_ID = Order_ID_entry.get()
     Order_Date = Order_Date_entry.get()
     Ship_Date = Ship_Date_entry.get()
@@ -137,78 +137,116 @@ def Save():
             mycon.commit()
             mycon.close()
 
+            # Also call list_records function
+            show_records(True)
+
             messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
         except:
             messagebox.showinfo('FAILED!', 'Faild to creat a new record')
     else:
         messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
+    
 
+
+def count_blank(entry_list):
+    count = 0
+    for item in entry_list:
+        if item == "" or item == "''":
+            count += 1
+
+    return count
 
 def Search():
-    # Also call list_records function
-    show_records(True)
 
-    Row_ID = Row_ID_entry.get()
-    Order_ID = Order_ID_entry.get()
-    Order_Date = Order_Date_entry.get()
-    Ship_Date = Ship_Date_entry.get()
-    # Convert DD/MM/YYYY -> YYYY-MM-DD
-    try:
-        Order_Date.index("/")
-        Order_Date = convertSlashDate(Order_Date)
-    except:
-        Order_Date = convertDashDate(Order_Date)
-    # print("Order Date: ", type(Order_Date))
 
-    try:
-        Ship_Date.index("/")
-        Ship_Date = convertSlashDate(Ship_Date)
-    except:
-        Ship_Date = convertDashDate(Ship_Date)
-    # print("Ship Date: ", Ship_Date)
+    Order_ID1 = "'" + Order_ID_entry1.get() + "'"
+    Order_Date1 = Order_Date_entry1.get()
+    if Order_Date1 != "":
+        # Convert DD/MM/YYYY -> YYYY-MM-DD
+        try:
+            Order_Date1.index("/")
+            Order_Date1 = convertSlashDate(Order_Date1)
+        except:
+            Order_Date1 = convertDashDate(Order_Date1)
+
     # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
     # 2, 5, 1112.11, 20, 0.3, 340.5]
     
-    ShipMode_ID = int(ShipMode_ID_cbbox.get())
-    Customer_ID = Customer_ID_entry.get()
-    Segment_ID = int(Segment_ID_cbbox.get())
-    City_ID = int(City_ID_entry.get())
-    State_ID = int(State_ID_entry.get())
-    Postal_Code = int(Postal_Code_entry.get())
-    Region_ID = int(Region_ID_cbbox.get())
-    Product_ID = Product_ID_entry.get()
-    Category_ID = int(Category_ID_cbbox.get())
-    SubCategory_ID = int(SubCategory_ID_entry.get())
-    Sales = float(Sales_entry.get())
-    Quantity = int(Quantity_entry.get())
-    Discount = float(Discount_entry.get())
-    Profit = float(Profit_entry.get())
+    # ShipMode_ID1 = int(ShipMode_ID_cbbox1.get())
+    # Segment_ID1 = int(Segment_ID_cbbox1.get())
+    # City_ID1 = int(City_ID_entry1.get())
+    # SubCategory_ID1 = int(SubCategory_ID_entry1.get())
+    # Quantity1 = int(Quantity_entry1.get())    
+    # Sales1 = float(Sales_entry1.get())
+    # Discount1 = float(Discount_entry1.get())
+    # Profit1 = float(Profit_entry1.get())
 
+    
+    
+    ShipMode_ID1 = ShipMode_ID_cbbox1.get()
+    if ShipMode_ID1 != "":
+        ShipMode_ID1 = int(ShipMode_ID1)
 
-    myList = [Order_ID, Order_Date, Ship_Date, ShipMode_ID,
-    Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code,
-    Region_ID, Product_ID, Category_ID, SubCategory_ID,
-    Sales, Quantity, Discount, Profit]
+    Customer_ID1 = "'" + Customer_ID_entry1.get() + "'"
+    Segment_ID1 = Segment_ID_cbbox1.get()
+    if Segment_ID1 != "":
+        Segment_ID1 = int(Segment_ID1)
 
-    print("My List: ", myList)
+    City_ID1 = City_ID_entry1.get()
+    if City_ID1 != "":
+        City_ID1 = int(City_ID1)
 
-    temp = -1 # Find the pos of "" in myList
-    try:
-        temp = myList.index("")
-    except:
-        pass
-
-
-    if temp == -1:
-        exe1 = f'''INSERT INTO mydb.Entry(
-        Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, 
-        Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID, 
-        Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit)
-
-        VALUES("{Order_ID}", "{Order_Date}", "{Ship_Date}", "{ShipMode_ID}", "{Customer_ID}", 
-        "{Segment_ID}", "{City_ID}", "{State_ID}", "{Postal_Code}", "{Region_ID}", "{Product_ID}", 
-        "{Category_ID}", "{SubCategory_ID}", "{Sales}", "{Quantity}", "{Discount}", "{Profit}")'''
+    Product_ID1 = "'" + Product_ID_entry1.get() + "'"
+    SubCategory_ID1 = SubCategory_ID_entry1.get()
+    if SubCategory_ID1 != "":
+        SubCategory_ID1 = int(SubCategory_ID1)
         
+    Sales1 = Sales_entry1.get()
+    if Sales1 != "":
+        Sales1 = float(Sales1)
+
+    Quantity1 = Quantity_entry1.get()
+    if Quantity1 != "":
+        Quantity1 = int(Quantity1)
+    
+    Discount1 = Discount_entry1.get()
+    if Discount1 != "":
+        Discount1 = float(Discount1)
+
+    Profit1 = Profit_entry1.get()
+    if Profit1 != "":
+        Profit1 = float(Profit1)
+
+    Query1 = Query_entry.get("1.0",'end-1c')
+
+    myDict = {"Row_ID" : Row_ID, "Order_Date" : Order_Date1, "ShipMode_ID" : ShipMode_ID1, 
+    "Customer_ID" : Customer_ID1, "Segment_ID" : Segment_ID1, "City_ID" : City_ID1, 
+    "Product_ID" : Product_ID1, "SubCategory_ID" : SubCategory_ID1, 
+    "Sales" : Sales1, "Quantity" : Quantity1, "Discount" : Discount1, "Profit" : Profit1}
+
+    print("My List: ", myDict)
+
+    blank = count_blank(myDict.values())
+    print("There are {} boxes is unfilled".format(blank))
+
+    if blank == 12 and Query1 == "":
+        messagebox.showinfo('ALERT!', 'PLEASE FILL IN ENTRIES/SQL BOX')
+    if blank < 12 and Query1 != "":
+        messagebox.showinfo('ALERT!', 'REMOVE ENTRIES/SQL BOX. CAN NOT APPLY BOTH!')
+    if blank < 12: # Entry box search
+        
+        filter = "WHERE Order_ID = '{}' ".format(Order_ID1)
+
+        for key, value in myDict.items():
+            if value != "" and value != "''":
+                filter += " AND " + key + " = {} ".format(value)
+        print("My Filter: ", filter)
+
+        exe1 = ''' SELECT * 
+                    FROM mydb.Entry 
+                    {}
+                    LIMIT 15'''.format(filter)
+
         # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
 
         try:
@@ -216,7 +254,7 @@ def Search():
                                 passwd=user_pwd, database='mydb')
             cur = mycon.cursor()
             cur.execute(exe1)
-
+            """
             Row_ID_entry.delete(0, END)
             Order_ID_entry.delete(0, END)
             Order_Date_entry.delete(0, END)
@@ -235,18 +273,21 @@ def Search():
             Quantity_entry.delete(0, END)
             Discount_entry.delete(0, END)
             Profit_entry.delete(0, END)
+            """
 
-            mycon.commit()
+            # Also call list_records function
+            
+            show_query_records(cur.fetchall())
+
             mycon.close()
 
-            messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
+            # messagebox.showinfo('SUCCESS!', 'You have successfully created a new record')
         except:
             messagebox.showinfo('FAILED!', 'Faild to creat a new record')
     else:
-        messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
-
-
-
+        pass
+    
+    
 
 # -------------------------------------------- Sort Queries --------------------------------------------------------
 def sort_all(table):
@@ -325,12 +366,26 @@ def show_records(update = False):
     mycon.close()
     print(records)
     i = 0
+
+    for item in table.get_children():
+        table.delete(item)
+
     for x in records:
         table.insert('', i, text="", values=(
             x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10],
             x[11], x[12], x[13], x[14], x[15], x[16], x[17]))
         i += 1
 
+def show_query_records(records):
+    i = 0
+    for item in table.get_children():
+        table.delete(item)
+
+    for x in records:
+        table.insert('', i, text="", values=(
+            x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10],
+            x[11], x[12], x[13], x[14], x[15], x[16], x[17]))
+        i += 1
 
 # ---------------------------------------------Post a Job---------------------------------------------------
 def create():
@@ -480,7 +535,7 @@ def list_records():
     scy = Scrollbar(tab, orient="vertical")
 
     global table
-    table = ttk.Treeview(tab, columns=("Order_ID", "Order_Date", "Ship_Date", 
+    table = ttk.Treeview(tab, columns=("Row_ID", "Order_ID", "Order_Date", "Ship_Date", 
     "ShipMode_ID","Customer_ID", "Segment_ID", "City_ID", "State_ID", "Postal_Code",
     "Region_ID", "Product_ID", "Category_ID", "SubCategory_ID",
     "Sales", "Quantity", "Discount", "Profit"),
@@ -488,8 +543,8 @@ def list_records():
     scx.pack(side="bottom", fill="x")
     scy.pack(side="right", fill="y")
 
+    table.heading("Row_ID", text='Row_ID')
     table.heading("Order_ID", text="Order_ID")
-    table.heading("Order_Date", text='Order_Date')
     table.heading("Order_Date", text='Order_Date')
     table.heading("Ship_Date", text='Ship_Date')
     table.heading("ShipMode_ID", text='ShipMode_ID')
@@ -515,24 +570,24 @@ def list_records():
     scx.config(command=table.xview)
     scy.config(command=table.yview)
 
-    table.column("Order_ID", width=52)
-    table.column("Order_Date", width=52)
-    table.column("Order_Date", width=52)
-    table.column("Ship_Date", width=52)
-    table.column("ShipMode_ID", width=52)
-    table.column("Customer_ID", width=52)
-    table.column("Segment_ID", width=52)
-    table.column("City_ID", width=52)
-    table.column("State_ID", width=52)
-    table.column("Postal_Code", width=52)
-    table.column("Region_ID", width=52)
-    table.column("Product_ID", width=52)
-    table.column("Category_ID", width=52)
-    table.column("SubCategory_ID", width=52)
-    table.column("Sales", width=52)
-    table.column("Quantity", width=52)
-    table.column("Discount", width=52)
-    table.column("Profit", width=52)
+    table.column("Row_ID", width=50)
+    table.column("Order_ID", width=50)
+    table.column("Order_Date", width=50)
+    table.column("Ship_Date", width=50)
+    table.column("ShipMode_ID", width=50)
+    table.column("Customer_ID", width=50)
+    table.column("Segment_ID", width=50)
+    table.column("City_ID", width=50)
+    table.column("State_ID", width=50)
+    table.column("Postal_Code", width=50)
+    table.column("Region_ID", width=50)
+    table.column("Product_ID", width=50)
+    table.column("Category_ID", width=50)
+    table.column("SubCategory_ID", width=50)
+    table.column("Sales", width=50)
+    table.column("Quantity", width=50)
+    table.column("Discount", width=50)
+    table.column("Profit", width=50)
     show_records()
     table.pack(fill="both", expand=1)
 
@@ -755,10 +810,10 @@ def fill_in(root, email1):
 # Query Record---------------------------------------------------------------------------------------------------------------------------
 def query(root, email1):
     global email
-    global Order_ID_entry, Order_Date_entry, ShipMode_ID_cbbox, Customer_ID_entry
-    global Segment_ID_cbbox, City_ID_entry, Product_ID_entry
-    global SubCategory_ID_entry, Sales_entry, Quantity_entry, Discount_entry
-    global Profit_entry, Query_entry
+    global Order_ID_entry1, Order_Date_entry1, ShipMode_ID_cbbox1, Customer_ID_entry1
+    global Segment_ID_cbbox1, City_ID_entry1, Product_ID_entry1
+    global SubCategory_ID_entry1, Sales_entry1, Quantity_entry1, Discount_entry1
+    global Profit_entry1, Query_entry
 
     email = email1
     bg = Frame(root, width=1050, height=700)
@@ -815,26 +870,26 @@ def query(root, email1):
     City_ID_label.grid(column=0, row=5, padx = (30, 0), sticky=W)
     
     # Colum 1
-    Order_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
-    Order_ID_entry.grid(column=1, row=0, sticky=W)
+    Order_ID_entry1 = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Order_ID_entry1.grid(column=1, row=0, sticky=W)
 
-    Order_Date_entry = Entry(lf,  width=15, placeholder="E.g: DD/MM/YYYY")
-    Order_Date_entry.grid(column=1, row=1, sticky=W)
+    Order_Date_entry1 = Entry(lf,  width=15, placeholder="E.g: DD/MM/YYYY")
+    Order_Date_entry1.grid(column=1, row=1, sticky=W)
 
             # Combobox
-    ShipMode_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3, 4], 
+    ShipMode_ID_cbbox1 = ttk.Combobox(lf, values = [1, 2, 3, 4], 
                     font=('normal', 13), width=16)
-    ShipMode_ID_cbbox.grid(column=1, row=2, sticky=W)
+    ShipMode_ID_cbbox1.grid(column=1, row=2, sticky=W)
     
-    Customer_ID_entry = Entry(lf,  width=15, placeholder="E.g: CG-12520")
-    Customer_ID_entry.grid(column=1, row=3, sticky=W)
+    Customer_ID_entry1 = Entry(lf,  width=15, placeholder="E.g: CG-12520")
+    Customer_ID_entry1.grid(column=1, row=3, sticky=W)
 
-    Segment_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3], 
+    Segment_ID_cbbox1 = ttk.Combobox(lf, values = [1, 2, 3], 
                     font=('normal', 13), width=16)
-    Segment_ID_cbbox.grid(column=1, row=4, sticky=W)
+    Segment_ID_cbbox1.grid(column=1, row=4, sticky=W)
 
-    City_ID_entry = Entry(lf,  width=15, placeholder="E.g: 3")
-    City_ID_entry.grid(column=1, row=5, sticky=W)
+    City_ID_entry1 = Entry(lf,  width=15, placeholder="E.g: 3")
+    City_ID_entry1.grid(column=1, row=5, sticky=W)
     
 
 
@@ -858,25 +913,25 @@ def query(root, email1):
     Profit_label.grid(column=2, row=5, padx = (30, 0), sticky=W)
 
     # Column 3
-    Product_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
-    Product_ID_entry.grid(column=3, row=0, sticky=W)
+    Product_ID_entry1 = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Product_ID_entry1.grid(column=3, row=0, sticky=W)
 
     Sub_Category_values = [x for x in range(1, 18)]
-    SubCategory_ID_entry = ttk.Combobox(lf, values = Sub_Category_values, 
+    SubCategory_ID_entry1 = ttk.Combobox(lf, values = Sub_Category_values, 
                     font=('normal', 13), width=16)
-    SubCategory_ID_entry.grid(column=3, row=1, sticky=W)
+    SubCategory_ID_entry1.grid(column=3, row=1, sticky=W)
 
-    Sales_entry = Entry(lf,  width=15, placeholder="E.g: 48.86")
-    Sales_entry.grid(column=3, row=2, sticky=W)
+    Sales_entry1 = Entry(lf,  width=15, placeholder="E.g: 48.86")
+    Sales_entry1.grid(column=3, row=2, sticky=W)
 
-    Quantity_entry = Entry(lf,  width=15, placeholder="E.g: 7")
-    Quantity_entry.grid(column=3, row=3, sticky=W)
+    Quantity_entry1 = Entry(lf,  width=15, placeholder="E.g: 7")
+    Quantity_entry1.grid(column=3, row=3, sticky=W)
 
-    Discount_entry = Entry(lf,  width=15, placeholder="E.g: 0.45")
-    Discount_entry.grid(column=3, row=4, sticky=W)
+    Discount_entry1 = Entry(lf,  width=15, placeholder="E.g: 0.45")
+    Discount_entry1.grid(column=3, row=4, sticky=W)
 
-    Profit_entry = Entry(lf,  width=15, placeholder="E.g: 34.47")
-    Profit_entry.grid(column=3, row=5, sticky=W)
+    Profit_entry1 = Entry(lf,  width=15, placeholder="E.g: 34.47")
+    Profit_entry1.grid(column=3, row=5, sticky=W)
 
     ####
     # Column 4-5

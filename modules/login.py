@@ -13,18 +13,21 @@ def chooseFunction(root, email1):
     r1.render = PhotoImage(file="elements/chooseFunction.png")
     img = Label(r1, image=r1.render)
     img.place(x=0, y=0)
-    r1.Img1 = PhotoImage(file="elements/recruiter_element.png")
-    recruit = Button(r1, image=r1.Img1, border=0, bg="#03DDEE",
-                     relief="raised", activebackground="#03EAFD", command=lambda: fill_in(root, email1))
-    recruit.place(x=140, y=340)
-    r1.Img2 = PhotoImage(file="elements/client_element.png")
-    recruit2 = Button(r1, image=r1.Img2, border=0, bg="#05edFC",
-                      relief="raised", activebackground="#05F6FD", command=lambda: query(root, email1))
-    recruit2.place(x=360, y=340)
+    r1.Img1 = PhotoImage(file="elements/big-keyboard.png")
+    recruit = Button(r1, font=('normal', 18, "bold"), image=r1.Img1, border=0, bg="#FFFFFF",
+                     relief="raised", activebackground="#2F86A6", 
+                     text="Fill-In", compound="top", command=lambda: fill_in(root, email1))
+    recruit.place(x=200, y=250)
+    r1.Img2 = PhotoImage(file="elements/big-query.png")
+    recruit2 = Button(r1, font=('normal', 18, "bold"), image=r1.Img2, border=0, bg="#FFFFFF",
+                      relief="raised", activebackground="#2F86A6", 
+                      text="Query", compound="top", command=lambda: query(root, email1))
+    recruit2.place(x=670, y=250)
     r1.bn = PhotoImage(file="elements\\backlogin.png")
-    btn = Button(r1, image=r1.bn, bg='#05e4f6',
-                 bd=0, activebackground="#05e4f6", command=lambda: logi(root))
-    btn.place(x=220, y=550)
+    btn = Button(r1, image=r1.bn, bg='#FFFFFF',
+                 bd=0, activebackground="#FFFFFF", command=lambda: logi(root))
+    btn.place(x=440, y=600)
+    # Search_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", 
 
 def success(root, email1):
     global f
