@@ -156,6 +156,18 @@ def count_blank(entry_list):
 
     return count
 
+def convertSlashDateObject(date_str):
+    format_str = "%d/%m/%Y"
+    date_obj = datetime.datetime.strptime(date_str, format_str)
+
+    return date_obj.strftime("%Y-%m-%d")
+
+def convertDashDateObject(date_str):
+    format_str = "%d-%m-%Y"
+    date_obj = datetime.datetime.strptime(date_str, format_str)
+
+    return date_obj.strftime("%Y-%m-%d")
+
 def Search():
 
 
@@ -165,9 +177,9 @@ def Search():
         # Convert DD/MM/YYYY -> YYYY-MM-DD
         try:
             Order_Date1.index("/")
-            Order_Date1 = convertSlashDate(Order_Date1)
+            Order_Date1 = " DATE('" + convertSlashDate(Order_Date1) + "') "
         except:
-            Order_Date1 = convertDashDate(Order_Date1)
+            Order_Date1 = " DATE('" + convertDashDate(Order_Date1) + "') "
 
     # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
     # 2, 5, 1112.11, 20, 0.3, 340.5]
@@ -219,7 +231,7 @@ def Search():
 
     Query1 = Query_entry.get("1.0",'end-1c')
 
-    myDict = {"Row_ID" : Row_ID, "Order_Date" : Order_Date1, "ShipMode_ID" : ShipMode_ID1, 
+    myDict = {"Order_ID" : Order_ID1, "Order_Date" : Order_Date1, "ShipMode_ID" : ShipMode_ID1, 
     "Customer_ID" : Customer_ID1, "Segment_ID" : Segment_ID1, "City_ID" : City_ID1, 
     "Product_ID" : Product_ID1, "SubCategory_ID" : SubCategory_ID1, 
     "Sales" : Sales1, "Quantity" : Quantity1, "Discount" : Discount1, "Profit" : Profit1}
@@ -230,22 +242,39 @@ def Search():
     print("There are {} boxes is unfilled".format(blank))
 
     if blank == 12 and Query1 == "":
+        exe1 = ''' SELECT * 
+                    FROM mydb.Entry 
+                    LIMIT 15;'''
+        try:
+            mycon = sql.connect(host='localhost', user='root',
+                                passwd=user_pwd, database='mydb')
+            cur = mycon.cursor()
+            cur.execute(exe1)
+
+            show_query_records(cur.fetchall())
+            mycon.close()
+
+        except:
+            messagebox.showinfo('FAILED!', 'Faild to search for your record')
+
         messagebox.showinfo('ALERT!', 'PLEASE FILL IN ENTRIES/SQL BOX')
-    if blank < 12 and Query1 != "":
+
+    elif blank < 12 and Query1 != "":
         messagebox.showinfo('ALERT!', 'REMOVE ENTRIES/SQL BOX. CAN NOT APPLY BOTH!')
-    if blank < 12: # Entry box search
+    elif blank < 12: # Entry box search
         
-        filter = "WHERE Order_ID = '{}' ".format(Order_ID1)
+        filter = "WHERE ".format(Order_ID1)
 
         for key, value in myDict.items():
             if value != "" and value != "''":
-                filter += " AND " + key + " = {} ".format(value)
+                filter += key + " = {} AND ".format(value)
+        filter = filter[: -4]
         print("My Filter: ", filter)
 
         exe1 = ''' SELECT * 
                     FROM mydb.Entry 
                     {}
-                    LIMIT 15'''.format(filter)
+                    LIMIT 15;'''.format(filter)
 
         # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
 
@@ -276,17 +305,25 @@ def Search():
             """
 
             # Also call list_records function
-            
             show_query_records(cur.fetchall())
-
             mycon.close()
 
             # messagebox.showinfo('SUCCESS!', 'You have successfully created a new record')
         except:
-            messagebox.showinfo('FAILED!', 'Faild to creat a new record')
+            messagebox.showinfo('FAILED!', 'Failed to search for your record')
     else:
-        pass
-    
+        exe1 = Query1
+
+        try:
+            mycon = sql.connect(host='localhost', user='root',
+                                passwd=user_pwd, database='mydb')
+            cur = mycon.cursor()
+            cur.execute(exe1)
+
+            show_query_records(cur.fetchall())
+            mycon.close()
+        except:
+            messagebox.showinfo('FAILED!', 'Failed to search for your record')
     
 
 # -------------------------------------------- Sort Queries --------------------------------------------------------
