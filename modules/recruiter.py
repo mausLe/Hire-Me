@@ -19,7 +19,7 @@ def get_details(email):
 
     name = d[0][0]
     code = d[0][1] # I replaced email -> code
-    pos = d[0][2]
+    pos  = d[0][2]
     role = d[0][3]
 
 
@@ -46,9 +46,6 @@ def Save():
     # Also call list_records function
     show_records(True)
 
-    global Row_ID, Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID
-    global Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID
-    global Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit
     Row_ID = Row_ID_entry.get()
     Order_ID = Order_ID_entry.get()
     Order_Date = Order_Date_entry.get()
@@ -59,14 +56,14 @@ def Save():
         Order_Date = convertSlashDate(Order_Date)
     except:
         Order_Date = convertDashDate(Order_Date)
-    print("Order Date: ", type(Order_Date))
+    # print("Order Date: ", type(Order_Date))
 
     try:
         Ship_Date.index("/")
         Ship_Date = convertSlashDate(Ship_Date)
     except:
         Ship_Date = convertDashDate(Ship_Date)
-    print("Ship Date: ", Ship_Date)
+    # print("Ship Date: ", Ship_Date)
     # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
     # 2, 5, 1112.11, 20, 0.3, 340.5]
     
@@ -140,12 +137,115 @@ def Save():
             mycon.commit()
             mycon.close()
 
-            
             messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
         except:
             messagebox.showinfo('FAILED!', 'Faild to creat a new record')
     else:
         messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
+
+
+def Search():
+    # Also call list_records function
+    show_records(True)
+
+    Row_ID = Row_ID_entry.get()
+    Order_ID = Order_ID_entry.get()
+    Order_Date = Order_Date_entry.get()
+    Ship_Date = Ship_Date_entry.get()
+    # Convert DD/MM/YYYY -> YYYY-MM-DD
+    try:
+        Order_Date.index("/")
+        Order_Date = convertSlashDate(Order_Date)
+    except:
+        Order_Date = convertDashDate(Order_Date)
+    # print("Order Date: ", type(Order_Date))
+
+    try:
+        Ship_Date.index("/")
+        Ship_Date = convertSlashDate(Ship_Date)
+    except:
+        Ship_Date = convertDashDate(Ship_Date)
+    # print("Ship Date: ", Ship_Date)
+    # myList = ['CA-2017-152156', '2017-11-14', '2017-2-23', 3, 'CG-12520', 2, 3, 33, 42420, 1, 'FUR-BO-10001798', 
+    # 2, 5, 1112.11, 20, 0.3, 340.5]
+    
+    ShipMode_ID = int(ShipMode_ID_cbbox.get())
+    Customer_ID = Customer_ID_entry.get()
+    Segment_ID = int(Segment_ID_cbbox.get())
+    City_ID = int(City_ID_entry.get())
+    State_ID = int(State_ID_entry.get())
+    Postal_Code = int(Postal_Code_entry.get())
+    Region_ID = int(Region_ID_cbbox.get())
+    Product_ID = Product_ID_entry.get()
+    Category_ID = int(Category_ID_cbbox.get())
+    SubCategory_ID = int(SubCategory_ID_entry.get())
+    Sales = float(Sales_entry.get())
+    Quantity = int(Quantity_entry.get())
+    Discount = float(Discount_entry.get())
+    Profit = float(Profit_entry.get())
+
+
+    myList = [Order_ID, Order_Date, Ship_Date, ShipMode_ID,
+    Customer_ID, Segment_ID, City_ID, State_ID, Postal_Code,
+    Region_ID, Product_ID, Category_ID, SubCategory_ID,
+    Sales, Quantity, Discount, Profit]
+
+    print("My List: ", myList)
+
+    temp = -1 # Find the pos of "" in myList
+    try:
+        temp = myList.index("")
+    except:
+        pass
+
+
+    if temp == -1:
+        exe1 = f'''INSERT INTO mydb.Entry(
+        Order_ID, Order_Date, Ship_Date, ShipMode_ID, Customer_ID, 
+        Segment_ID, City_ID, State_ID, Postal_Code, Region_ID, Product_ID, 
+        Category_ID, SubCategory_ID, Sales, Quantity, Discount, Profit)
+
+        VALUES("{Order_ID}", "{Order_Date}", "{Ship_Date}", "{ShipMode_ID}", "{Customer_ID}", 
+        "{Segment_ID}", "{City_ID}", "{State_ID}", "{Postal_Code}", "{Region_ID}", "{Product_ID}", 
+        "{Category_ID}", "{SubCategory_ID}", "{Sales}", "{Quantity}", "{Discount}", "{Profit}")'''
+        
+        # VALUES({ 'CA-2017-152156'}, { '11/8/2017'}, { '11/11/2017'}, { 3}, { 'CG-12520'}, { 2}, { 3}, { 33}, { 42420}, { 1}, { 'FUR-BO-10001798'}, { 2}, { 5}, { 1112.11}, { 20}, { 0.3}, { 340.5})'''
+
+        try:
+            mycon = sql.connect(host='localhost', user='root',
+                                passwd=user_pwd, database='mydb')
+            cur = mycon.cursor()
+            cur.execute(exe1)
+
+            Row_ID_entry.delete(0, END)
+            Order_ID_entry.delete(0, END)
+            Order_Date_entry.delete(0, END)
+            Ship_Date_entry.delete(0, END)
+            ShipMode_ID_cbbox.delete(0, END)
+            Customer_ID_entry.delete(0, END)
+            Segment_ID_cbbox.delete(0, END)
+            City_ID_entry.delete(0, END)
+            State_ID_entry.delete(0, END)
+            Postal_Code_entry.delete(0, END)
+            Region_ID_cbbox.delete(0, END)
+            Product_ID_entry.delete(0, END)
+            Category_ID_cbbox.delete(0, END)
+            SubCategory_ID_entry.delete(0, END)
+            Sales_entry.delete(0, END)
+            Quantity_entry.delete(0, END)
+            Discount_entry.delete(0, END)
+            Profit_entry.delete(0, END)
+
+            mycon.commit()
+            mycon.close()
+
+            messagebox.showinfo('SUCCESS!', 'You have successfully created a new record {}'.format(Order_Date))
+        except:
+            messagebox.showinfo('FAILED!', 'Faild to creat a new record')
+    else:
+        messagebox.showinfo('ALERT!', 'ALL FIELDS ARE MUST BE FILLED')
+
+
 
 
 # -------------------------------------------- Sort Queries --------------------------------------------------------
@@ -438,7 +538,7 @@ def list_records():
 
 
 # ---------------------------------------------------------------------------------------------------------------------------
-def rec(root, email1):
+def fill_in(root, email1):
     global email
     global Row_ID_entry, Order_ID_entry, Order_Date_entry, Ship_Date_entry, ShipMode_ID_cbbox, Customer_ID_entry
     global Segment_ID_cbbox, City_ID_entry, State_ID_entry, Postal_Code_entry, Region_ID_cbbox, Product_ID_entry
@@ -651,6 +751,157 @@ def rec(root, email1):
     #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
     Save_Record.place(x=475, y=447)
 
+
+# Query Record---------------------------------------------------------------------------------------------------------------------------
+def query(root, email1):
+    global email
+    global Order_ID_entry, Order_Date_entry, ShipMode_ID_cbbox, Customer_ID_entry
+    global Segment_ID_cbbox, City_ID_entry, Product_ID_entry
+    global SubCategory_ID_entry, Sales_entry, Quantity_entry, Discount_entry
+    global Profit_entry, Query_entry
+
+    email = email1
+    bg = Frame(root, width=1050, height=700)
+    bg.place(x=0, y=0)
+
+    get_details(email)
+
+    bg.load = PhotoImage(file=f'elements\\bgMenu.png')
+    img = Label(root, image=bg.load)
+    img.place(x=0, y=0)
+
+    # Navbar
+    nm = Label(root, text=f'{name}', font=(
+        'normal', 36, 'bold'), bg="#ffffff", fg="#0A3D62")
+    nm.place(x=300, y=50)
+    pos_l = Label(root, text=f'{code + "  -  " + pos}', font=(
+        'normal', 24), bg="#ffffff", fg="#0A3D62")
+    pos_l.place(x=300, y=120)
+    bn = Button(root, text="LOGOUT", font=(
+        'normal', 20), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
+    bn.place(x=800, y=75)
+
+    # Left
+    lf = Frame(root, width=920, height=160, bg="#ffffff")
+    # lf.place(x=70, y=220)
+    lf.place(x=70, y=220)
+
+    ### My Entry Grid
+    # Configure the grid
+    lf.columnconfigure(0, weight=1)
+    lf.columnconfigure(2, weight=1)
+    lf.columnconfigure(4, weight=1)
+    lf.columnconfigure(1, weight=3)
+    lf.columnconfigure(3, weight=3)
+    lf.columnconfigure(5, weight=3)
+
+    # Column 0
+    Order_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Order ID")
+    Order_ID_label.grid(column=0, row=0, sticky=W)
+
+    Order_Date_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Order Date")
+    Order_Date_label.grid(column=0, row=1, sticky=W)
+    
+    ShipMode_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Ship Mode")
+    ShipMode_ID_label.grid(column=0, row=2, sticky=W)
+    
+    Customer_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Customer ID")
+    Customer_ID_label.grid(column=0, row=3, sticky=W)
+
+    Segment_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Segment")
+    Segment_ID_label.grid(column=0, row=4, padx = (30, 0), sticky=W)
+
+    City_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="City ID")
+    City_ID_label.grid(column=0, row=5, padx = (30, 0), sticky=W)
+    
+    # Colum 1
+    Order_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Order_ID_entry.grid(column=1, row=0, sticky=W)
+
+    Order_Date_entry = Entry(lf,  width=15, placeholder="E.g: DD/MM/YYYY")
+    Order_Date_entry.grid(column=1, row=1, sticky=W)
+
+            # Combobox
+    ShipMode_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3, 4], 
+                    font=('normal', 13), width=16)
+    ShipMode_ID_cbbox.grid(column=1, row=2, sticky=W)
+    
+    Customer_ID_entry = Entry(lf,  width=15, placeholder="E.g: CG-12520")
+    Customer_ID_entry.grid(column=1, row=3, sticky=W)
+
+    Segment_ID_cbbox = ttk.Combobox(lf, values = [1, 2, 3], 
+                    font=('normal', 13), width=16)
+    Segment_ID_cbbox.grid(column=1, row=4, sticky=W)
+
+    City_ID_entry = Entry(lf,  width=15, placeholder="E.g: 3")
+    City_ID_entry.grid(column=1, row=5, sticky=W)
+    
+
+
+    # Column 2
+    Product_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Product ID")
+    Product_ID_label.grid(column=2, row=0, padx = (30, 0), sticky=W)
+
+    SubCategory_ID_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Sub-Cat ID")
+    SubCategory_ID_label.grid(column=2, row=1, padx = (30, 0), sticky=W)
+
+    Sales_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Sales ($)")
+    Sales_label.grid(column=2, row=2, padx = (30, 0), sticky=W)
+
+    Quantity_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Quantity")
+    Quantity_label.grid(column=2, row=3, padx = (30, 0), sticky=W)
+
+    Discount_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Discount")
+    Discount_label.grid(column=2, row=4, padx = (30, 0), sticky=W)
+
+    Profit_label = Label(lf, bg='#FFFFFF', font=('normal', 14, 'bold'), fg="#161E54", text="Profit")
+    Profit_label.grid(column=2, row=5, padx = (30, 0), sticky=W)
+
+    # Column 3
+    Product_ID_entry = Entry(lf,  width=15, placeholder="E.g: CA-2017-152156")
+    Product_ID_entry.grid(column=3, row=0, sticky=W)
+
+    Sub_Category_values = [x for x in range(1, 18)]
+    SubCategory_ID_entry = ttk.Combobox(lf, values = Sub_Category_values, 
+                    font=('normal', 13), width=16)
+    SubCategory_ID_entry.grid(column=3, row=1, sticky=W)
+
+    Sales_entry = Entry(lf,  width=15, placeholder="E.g: 48.86")
+    Sales_entry.grid(column=3, row=2, sticky=W)
+
+    Quantity_entry = Entry(lf,  width=15, placeholder="E.g: 7")
+    Quantity_entry.grid(column=3, row=3, sticky=W)
+
+    Discount_entry = Entry(lf,  width=15, placeholder="E.g: 0.45")
+    Discount_entry.grid(column=3, row=4, sticky=W)
+
+    Profit_entry = Entry(lf,  width=15, placeholder="E.g: 34.47")
+    Profit_entry.grid(column=3, row=5, sticky=W)
+
+    ####
+    # Column 4-5
+    Query_label = Label(lf, width=20, bg='#FFFFFF', font=('normal', 13, 'bold'), fg="#000D6B", text="SQL Query")
+    Query_label.grid(column=4, row=0, padx = (30, 0), sticky=N, columnspan=2)
+
+    # Column 4-5
+    Query_entry = Text(lf, width=30, height=9, font=("Helvetica", 13), bg="#FBF3E4")
+    Query_entry.grid(column=4, row=1, padx = (30, 0), sticky=W, rowspan=5, columnspan=2)
+
+    # Right
+    global rt, tab, bgr
+    # rt = Frame(root, width=95, height=200, bg="#ff33ff")
+    # rt.place(x=60, y=520)
+    tab = Frame(root, bg="#ffffff")
+    tab.place(x=70, y=492, width=920, height=170)
+    list_records()
+
+    root.bn = PhotoImage(file="elements\\search.png") 
+    Search_Record = Button(root, font=('normal', 13), bg='#FFFFFF', activebackground="#ffffff", 
+    image=root.bn, text="Search", compound="left", command=Search) 
+
+    # Save_Record = Button(root, text="Save Record", font=(
+    #     'normal', 13), bg="#b32e2e", fg="#ffffff", command=lambda: logi(root))
+    Search_Record.place(x=475, y=447)
     
 
     

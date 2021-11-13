@@ -15,11 +15,11 @@ def chooseFunction(root, email1):
     img.place(x=0, y=0)
     r1.Img1 = PhotoImage(file="elements/recruiter_element.png")
     recruit = Button(r1, image=r1.Img1, border=0, bg="#03DDEE",
-                     relief="raised", activebackground="#03EAFD", command=lambda: rec(root, email1))
+                     relief="raised", activebackground="#03EAFD", command=lambda: fill_in(root, email1))
     recruit.place(x=140, y=340)
     r1.Img2 = PhotoImage(file="elements/client_element.png")
     recruit2 = Button(r1, image=r1.Img2, border=0, bg="#05edFC",
-                      relief="raised", activebackground="#05F6FD", command=lambda: client_regis(root))
+                      relief="raised", activebackground="#05F6FD", command=lambda: query(root, email1))
     recruit2.place(x=360, y=340)
     r1.bn = PhotoImage(file="elements\\backlogin.png")
     btn = Button(r1, image=r1.bn, bg='#05e4f6',
@@ -42,10 +42,6 @@ def success(root, email1):
     q = cur.fetchall()
     mycon.close()
     print(q)
-
-    
-
-
 
 def submit(root):
     mycon = sql.connect(host='localhost', user='root',
